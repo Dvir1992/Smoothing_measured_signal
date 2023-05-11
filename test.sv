@@ -17,7 +17,7 @@ class test extends uvm_test;
     gen = generator::type_id::create("gen",this);
     gen.limit=20;//num of sequence items we want to send to the driver.
     test_type=1;// determine the way of monitor and check the output data.
-    //
+    //send values path to uvm configuration data base
     uvm_config_db #(bit [1:0]) :: set(null, "*", "test_type", test_type);
     uvm_config_db #(int) :: set(null, "*", "limit", gen.limit);
   endfunction
