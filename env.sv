@@ -5,9 +5,9 @@ class env extends uvm_env;
     super.new(inst,parent);
   endfunction
  
-scoreboard s;
-agent a;
-ref_model rm;
+  scoreboard s;
+  agent a;
+  ref_model rm;
  
   virtual function void build_phase(uvm_phase phase);
   super.build_phase(phase);
