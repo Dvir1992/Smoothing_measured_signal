@@ -22,7 +22,7 @@ virtual task run_phase(uvm_phase phase);
     	forever begin
           @(negedge vsif.clk);
           if(vsif.vald_din) 
-       		t.data_in.push_back(vsif.data_in);  
+       		  t.data_in.push_back(vsif.data_in);  
         end
     end
       
@@ -49,16 +49,7 @@ virtual task run_phase(uvm_phase phase);
             t.data_in.delete();
             t.data_out.delete();
       end  
-    end
-    
-    
-    
-  join
-  
-  
-  
-       
-endtask
- 
-
+    end   
+  join       
+ endtask
 endclass
