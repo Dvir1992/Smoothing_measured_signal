@@ -25,7 +25,6 @@ class agent extends uvm_agent;
     d = driver::type_id::create("d",this);
     seqr = uvm_sequencer #(transaction)::type_id::create("seqr",this);      
     factory.print();
- 
   endfunction
  
   virtual function void connect_phase(uvm_phase phase);
