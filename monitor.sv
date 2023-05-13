@@ -52,7 +52,7 @@ virtual task run_phase(uvm_phase phase);
       begin
        forever begin        
          @(negedge vsif.clk);
-         //checker on the fly:comparing the t.data_out ,that created in the monitor,  to the data_out interface value immediatly, without scoreboard. more accurate to do it without transaction but its comftarable to take the values from transaction and not create new objects here- the downside is that i uses memory by using the queues.
+         //checker on the fly:comparing the t.data_out ,that created in the monitor,  to the data_out interface values immediatly, without scoreboard.
          if(vsif.valid_out) begin
            if(pixel_counter<2**(t.movavgwin_param+1)-1)begin
              t.data_out.push_back(0);
