@@ -4,3 +4,5 @@ What special in this verification environment is that it continas 3 methods to c
 1. on-the-fly: in the monitor itself.
 2. in the scoreboard without reference model.
 3. in the scorebord with reference model.
+ * To choose between on-the-fly method and with scoreboard you just should change the test_type in the test.sv
+ * Its also important to notice that over time, the inputs block values are changed every valid_din to get better coverage. 
