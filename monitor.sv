@@ -1,6 +1,6 @@
 class monitor extends uvm_monitor;
 `uvm_component_utils(monitor)
-   uvm_analysis_port #(transaction) send;// Broadcasts a value to all subscribers implementing a uvm_analysis_imp.
+uvm_analysis_port #(transaction) send;// Broadcasts a value to all subscribers implementing a uvm_analysis_imp.
 virtual s_if vsif;
 transaction t;
 integer pixel_counter=0;
@@ -15,13 +15,11 @@ integer j;
   endfunction
  
   virtual function void build_phase(uvm_phase phase);
-  super.build_phase(phase);
-    t = transaction::type_id::create("t");
-   
-    
-    if(!uvm_config_db#(virtual s_if)::get(this,"","vsif",vsif))
-  `uvm_error("MON", "Unable to access Interface");
-endfunction
+  	super.build_phase(phase);
+    		t = transaction::type_id::create("t");
+  	if(!uvm_config_db#(virtual s_if)::get(this,"","vsif",vsif))
+  		`uvm_error("MON", "Unable to access Interface");
+  endfunction
  
 virtual task run_phase(uvm_phase phase);
 
@@ -38,13 +36,13 @@ virtual task run_phase(uvm_phase phase);
         forever begin
           @(negedge vsif.clk);
           if(vsif.vald_din) 
-        		t.data_in.push_back(vsif.data_in);                                
+        	t.data_in.push_back(vsif.data_in);                                
         end
       end
        begin
          forever begin
 		@(negedge vsif.vald_din);
-       //  `uvm_info("data_in",$sformatf("data in is:%p",t.data_in),UVM_LOW)
+      		//`uvm_info("data_in",$sformatf("data in is:%p",t.data_in),UVM_LOW)
          end
       end
           
@@ -71,24 +69,21 @@ virtual task run_phase(uvm_phase phase);
            `uvm_info("data_out_mid",$sformatf("data_out_mid:%p",t.data_out),UVM_DEBUG)
            `uvm_info("vsif.data_out",$sformatf("vsif.data_out_mid:%p",vsif.data_out),UVM_DEBUG)
            if(t.data_out[pixel_counter]!=vsif.data_out)
-             `uvm_error("CHECKER_phase_signals", "outpur_error");
+		   `uvm_error("CHECKER_phase_signals", "output_error");
             pixel_counter++; 
-         end
-       //
+	 end
        end        
       end
         begin
          forever begin
            @(negedge vsif.valid_out);           
-         //  `uvm_info("data_out",$sformatf("data out is:%p",t.data_out),UVM_LOW)
+           //`uvm_info("data_out",$sformatf("data out is:%p",t.data_out),UVM_LOW)
             pixel_counter=0;
             t.data_out.delete();
             t.data_in.delete();
             j=0;
          end
-      end
-            
-     
+      end     
     join
     
   endtask
