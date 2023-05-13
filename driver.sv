@@ -6,8 +6,7 @@ virtual s_if vsif;
 
  
   function new(input string inst = "driver", uvm_component parent = null);
-    super.new(inst,parent);
-    
+    super.new(inst,parent);    
     `uvm_info("DRV","drv_built",UVM_LOW)
   endfunction
  
@@ -35,24 +34,23 @@ virtual task run_phase(uvm_phase phase);
     begin  
       vsif.movavg_en<=1;
       //handshake steps:4 (cycle will repeated again from here)
-		  seq_item_port.get_next_item(t);
+      seq_item_port.get_next_item(t);
       @(posedge vsif.clk);
       vsif.movavgwin_param<=t.movavgwin_param;
-   		vsif.start_act<=1;
+      vsif.start_act<=1;
       @(posedge vsif.clk);
-    	vsif.start_act<=0;
-    	vsif.vald_din<=1;
+      vsif.start_act<=0;
+      vsif.vald_din<=1;
       repeat(t.valid_din_length) begin
         vsif.data_in<=t.data_in.pop_front(); 
         @(posedge vsif.clk);
-     	end
+      end
       vsif.vald_din<=0;
-		  @(posedge vsif.clk);
+      @(posedge vsif.clk);
       @(posedge vsif.clk);
       seq_item_port.item_done();    
       end 
-  end
-   
+  end   
 endtask
  
 endclass
