@@ -4,7 +4,7 @@ int limit;
  
  
   function new(string inst = "generator");
-  super.new(inst);
+   super.new(inst);
   endfunction
 
  
@@ -13,7 +13,7 @@ virtual task body();
   for (int i=0; i<limit; i++) begin
     req = transaction::type_id::create("TRANS");
     start_item(req);
-     req.randomize();
+    req.randomize();
     //wait for item in driver to be done.
     finish_item(req);
     //after driver finish to work on the item
