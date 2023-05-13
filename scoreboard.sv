@@ -15,9 +15,8 @@ class scoreboard extends uvm_scoreboard;
   integer counter=0;
   event finish;
   function new(input string inst = "SCO", uvm_component parent);
-    super.new(inst,parent);
-    
-endfunction
+    super.new(inst,parent);    
+  endfunction
   
 
  
@@ -42,19 +41,17 @@ endfunction
     while(pixel_counter<t.data_in.size())
       begin
         if(pixel_counter<2**(t.movavgwin_param+1)-1)begin
-
              data_out_ref.push_back(0);         
         end
-           else begin      
+        else begin      
              pixel_value=0;
              for(int i=j; i<2**(t.movavgwin_param+1)+j; i++) begin
                pixel_value=(pixel_value+t.data_in[i]);
              end
              pixel_value=pixel_value/(2**(t.movavgwin_param+1));
              data_out_ref.push_back(pixel_value); 
-             j++;           
-            
-           end 
+             j++;                       
+        end 
         `uvm_info("data_out_ref",$sformatf("data_out_ref:%h",data_out_ref[0]),UVM_DEBUG)
         `uvm_info("data_out_real",$sformatf("data_out_real:%h",t.data_out[0]),UVM_DEBUG)
         if(t.data_out.pop_front()!=data_out_ref.pop_front())
@@ -75,8 +72,7 @@ endfunction
   endfunction
    
   virtual function void write_with_ref(transaction t);  
-    //if we work with ref model, we would send the real data  here and the expected in       write_no_ref. and then, in one of them we would make the comparison
-          
+    //if we work with ref model, we would send the real data  here and the expected in write_no_ref. and then, in one of them we would make the comparison          
   endfunction
   
 endclass
